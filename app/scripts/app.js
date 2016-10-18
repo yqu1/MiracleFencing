@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource'])
+angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materialize'])
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 

@@ -12,6 +12,7 @@
 	    <link href="../bower_components/ng-dialog/css/ngDialog-theme-default.min.css" rel="stylesheet">
          <link href="styles/mystyles.css" rel="stylesheet">
 
+
 	</head>
 
 	<body>
@@ -26,9 +27,16 @@
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="../bower_components/ng-dialog/js/ngDialog.min.js"></script>
-    <script src="../bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.1/angular-materialize.min.js"></script>
+    <script src="../bower_components/materialize/dist/js/materialize.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
+    <script>
+        $(document).ready(function(){
+              $('.slider').slider();
+
+            });
+    </script>
 	</body>
 
 </html>
