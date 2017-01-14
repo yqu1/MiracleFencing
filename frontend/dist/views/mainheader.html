@@ -1,8 +1,9 @@
 <script>
 // Initialize collapse button
 $(".button-collapse").sideNav({
-  closeOnClick: true,
-  menuWidth: 200
+  closeOnClick: false,
+  menuWidth: 200,
+  draggable: true
 });
 $(".dropdown-button").dropdown();
 </script>
@@ -42,6 +43,33 @@ $(".dropdown-button").dropdown();
         <li><a ui-sref="app.schedule" class = "white-text">Schedule</a></li>
         <li><a ng-click = "scrollBottom()" class = "white-text">Contact</a></li>
         <li><a ui-sref="app.resources" class = "white-text">Resources</a></li>
+        <li ng-show="!loggedin" class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Registration</a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a ui-sref="app.login">Login</a></li>
+                <li><a ui-sref="app.signup">Signup</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li ng-show="loggedin" class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">{{username}}</a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a ui-sref="app">Profile</a></li>
+        <li><a ui-sref="app">Duels</a></li>
+        <li><a ng-click = "logout()">Logout</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
       </ul>
     </div>
   </nav>

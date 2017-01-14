@@ -1,18 +1,13 @@
 <script>
 // Initialize collapse button
 $(".button-collapse").sideNav({
-  closeOnClick: true,
-  menuWidth: 200
+  closeOnClick: false,
+  menuWidth: 200,
+  draggable: true
 });
 $(".dropdown-button").dropdown();
 </script>
-
-<div class="navbar-fixed"> 
-  <nav>
-    <div class="nav-wrapper blue">
-      <a href="#!" class="brand-logo center">Miracle Fencing Club</a>
-      <a href = "" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-      <ul id="dropdown1" class="dropdown-content">
+<ul id="dropdown1" class="dropdown-content">
         <li><a ui-sref="app.login">Login</a></li>
         <li><a ui-sref="app.signup">Signup</a></li>
       </ul>
@@ -21,6 +16,11 @@ $(".dropdown-button").dropdown();
         <li><a ui-sref="app">Duels</a></li>
         <li><a ng-click = "logout()">Logout</a></li>
       </ul>
+<div class="navbar-fixed"> 
+  <nav>
+    <div class="nav-wrapper blue">
+      <a href="#!" class="brand-logo center">Miracle Fencing Club</a>
+      <a href = "" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
 <!--         <li><a ui-sref = "app">Home</a></li> -->
 <!--         <li><a href = "#">Coaches</a></li> -->
@@ -42,6 +42,33 @@ $(".dropdown-button").dropdown();
         <li><a ui-sref="app.schedule" class = "white-text">Schedule</a></li>
         <li><a ng-click = "scrollBottom()" class = "white-text">Contact</a></li>
         <li><a ui-sref="app.resources" class = "white-text">Resources</a></li>
+        <li ng-show="!loggedin" class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Registration</a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a ui-sref="app.login">Login</a></li>
+                <li><a ui-sref="app.signup">Signup</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li ng-show="loggedin" class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">{{username}}</a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a ui-sref="app">Profile</a></li>
+        <li><a ui-sref="app">Duels</a></li>
+        <li><a ng-click = "logout()">Logout</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
       </ul>
     </div>
   </nav>
