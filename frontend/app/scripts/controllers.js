@@ -10,7 +10,7 @@ angular.module('fencingApp')
     $rootScope.loggedin = false
   }
 })
-.constant("baseURL", "https://localhost:3443/")
+.constant("baseURL", "https://peaceful-fortress-87755.herokuapp.com/")
 .service('blogService', ['$http', function($http) {
 	var url = 'https://www.googleapis.com/blogger/v3/blogs/7067178439209854231/posts?key=AIzaSyClkD7VwG7pUmxVqDqBcTUZ5PzjWbSHGXA'
 	this.getNewBlog = function(callback) {
