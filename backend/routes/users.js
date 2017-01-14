@@ -23,6 +23,9 @@ router.post('/register', function(req, res) {
 			if(req.body.lastname) {
 				user.lastname = req.body.lastname;
 			}
+			if(req.body.email) {
+				user.email = req.body.email;
+			}
 
 			user.save(function(err, user) {
 				passport.authenticate('local')(req, res, function() {
@@ -34,6 +37,9 @@ router.post('/register', function(req, res) {
 
 router.post('/login', function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
+		console.log(err)
+		console.log(user)
+		console.log(info)
 		if(err) {
 			return next(err);
 		}

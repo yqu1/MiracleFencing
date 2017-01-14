@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var cors = require('cors')
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -20,11 +21,9 @@ db.once('open', function(){
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var dishRouter = require('./routes/router')
-var favRouter = require('./routes/favourites');
 
 var app = express();
-
+app.use(cors())
 app.all('*', function(req, res, next) {
   if(req.secure) {
     return next();
@@ -52,8 +51,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/dishes', dishRouter);
-app.use('/favourites', favRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

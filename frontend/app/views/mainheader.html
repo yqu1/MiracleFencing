@@ -16,13 +16,18 @@ $(".dropdown-button").dropdown();
         <li><a ui-sref="app.login">Login</a></li>
         <li><a ui-sref="app.signup">Signup</a></li>
       </ul>
+      <ul id="dropdown2" class="dropdown-content">
+        <li><a ui-sref="app">Profile</a></li>
+        <li><a ui-sref="app">Duels</a></li>
+        <li><a ng-click = "logout()">Logout</a></li>
+      </ul>
       <ul class="right hide-on-med-and-down">
 <!--         <li><a ui-sref = "app">Home</a></li> -->
 <!--         <li><a href = "#">Coaches</a></li> -->
         <li><a ng-click = "scrollBottom()">Contact</a></li>
         <li><a ui-sref="app.resources">Resources</a></li>
-         <li><a class="dropdown-button" data-activates="dropdown1">Registration<i class="material-icons right">arrow_drop_down</i></a></li>
-<!--         <li><a ui-sref="app.registration">Registration</a></li> -->
+         <li ng-show="!loggedin"><a class="dropdown-button" data-activates="dropdown1">Registration<i class="material-icons right">arrow_drop_down</i></a></li>
+         <li ng-show="loggedin"><a class="dropdown-button" data-activates="dropdown2">{{username}}<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
       <ul class="left hide-on-med-and-down">
         <li><a ui-sref = "app">Home</a></li>

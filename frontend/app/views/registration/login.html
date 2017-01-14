@@ -11,35 +11,35 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input class="validate" id="email" type="email">
-            <label for="email" data-error="wrong" data-success="right">Email</label>
+            <input class="validate" id="username" type="text" ng-model="loginData.username">
+            <label for="username" data-error="wrong" data-success="right">Username</label>
           </div>
-        </div>
+        </div>  
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password">
+            <input id="password" type="password" ng-model="loginData.password">
             <label for="password">Password</label>
           </div>
         </div>
-        <div class="row">          
+<!--         <div class="row">          
           <div class="input-field col s12 m12 l12  login-text">
               <input type="checkbox" id="remember-me" />
               <label for="remember-me">Remember me</label>
           </div>
-        </div>
+        </div> -->
         <div class="row">
           <div class="input-field col s12">
-            <a href="login.html" class="btn waves-effect waves-light col s12">Login</a>
+            <a class="btn waves-effect waves-light col s12" ng-click = "doLogin()">Login</a>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6 m6 l6">
-            <p class="margin medium-small"><a href="register.html">Register Now!</a></p>
+            <p class="margin medium-small"><a ui-sref="app.signup">Register Now!</a></p>
           </div>
-          <div class="input-field col s6 m6 l6">
+<!--           <div class="input-field col s6 m6 l6">
               <p class="margin right-align medium-small"><a href="forgot-password.html">Forgot password?</a></p>
-          </div>          
+          </div>        -->   
         </div>
 
       </form>

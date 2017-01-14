@@ -10,34 +10,48 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text" class="validate">
+            <input id="username" type="text" class="validate" ng-model="registration.username">
             <label for="username">Username</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
+            <i class="mdi-action-account-circle prefix"></i>
+            <input id="firstname" type="text" class="validate" ng-model="registration.firstname">
+            <label for="firstname">Firstname</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-action-account-circle prefix"></i>
+            <input id="lastname" type="text" class="validate" ng-model="registration.lastname">
+            <label for="lastname">Lastname</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
             <i class="mdi-communication-email prefix"></i>
-            <input id="email" type="email" class="validate">
+            <input id="email" type="email" class="validate" ng-model="registration.email">
             <label for="email">Email</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" class="validate">
+            <input id="password" type="password" class="validate" ng-model="registration.password">
             <label for="password">Password</label>
           </div>
         </div>
-        <div class="row margin">
+<!--         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
             <input id="password-again" type="password">
             <label for="password-again">Re-type password</label>
           </div>
-        </div>
+        </div> -->
         <div class="row">
           <div class="input-field col s12">
-            <a href="register.html" class="btn waves-effect waves-light col s12">Register Now</a>
+            <a class="btn waves-effect waves-light col s12" ng-click = "doRegister()">Register Now</a>
           </div>
           <div class="input-field col s12">
             <p class="margin center medium-small sign-up">Already have an account? <a ui-sref = "app.login">Login</a></p>
