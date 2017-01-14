@@ -1,11 +1,58 @@
+<script>
+// Initialize collapse button
+$(".button-collapse").sideNav({
+  closeOnClick: true,
+  menuWidth: 200
+});
+</script>
+
+<div class="navbar-fixed"> 
   <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Miracle Fencing</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href = "#">Coaches</a></li>
-        <li><a href = "#">Schedule and Classes</a></li>
-        <li><a href = "#">Contact</a></li>
+    <div class="nav-wrapper blue">
+      <a href="#!" class="brand-logo center">Miracle Fencing Club</a>
+      <a href = "" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+<!--         <li><a ui-sref = "app">Home</a></li> -->
+<!--         <li><a href = "#">Coaches</a></li> -->
+        <li><a ui-sref="app.schedule">Schedule</a></li>
+        <li><a ng-click = "scrollBottom()">Contact</a></li>
+        <li><a ui-sref="app.resources">Resources</a></li>
+        <li><a ui-sref="app.login">Login</a></li>
+<!--         <li><a ui-sref="app.registration">Registration</a></li> -->
+      </ul>
+      <ul class="left hide-on-med-and-down">
+        <li><a ui-sref = "app">Home</a></li>
+<!--         <li><a href = "#">Coaches</a></li> -->
+<!--         <li><a ui-sref="app.schedule">Schedule</a></li> -->
+<!--         <li><a ng-click = "scrollBottom()">Contact</a></li> -->
+      </ul>
+      <ul class="side-nav blue" id="mobile-demo">
+        <li><a ui-sref = "app" class = "white-text">Home</a></li>
+<!--         <li><a href = "#">Coaches</a></li> -->
+        <li><a ui-sref="app.schedule" class = "white-text">Schedule</a></li>
+        <li><a ng-click = "scrollBottom()" class = "white-text">Contact</a></li>
+        <li><a ui-sref="app.resources" class = "white-text">Resources</a></li>
       </ul>
     </div>
   </nav>
+<!--     <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">Logo</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Sass</a></li>
+        <li><a href="#">Components</a></li>
+        <li><a href="#">Javascript</a></li>
+        <li><a href="#">Mobile</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="#">Sass</a></li>
+        <li><a href="#">Components</a></li> 
+        <li><a href="#">Javascript</a></li>
+        <li><a href="#">Mobile</a></li>
+      </ul>
+    </div>
+  </nav> -->
+</div>
+
         

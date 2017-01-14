@@ -4,14 +4,18 @@
 		<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
    		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Miracle Fencing</title>
+
+
+		<title>Miracle Fencing Club</title>
+<!-- build:css styles/main.css -->
         <link href="../bower_components/materialize/dist/css/materialize.min.css" rel="stylesheet">
 	    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	    <link href="../bower_components/ng-dialog/css/ngDialog.min.css" rel="stylesheet">
 	    <link href="../bower_components/ng-dialog/css/ngDialog-theme-plain.min.css" rel="stylesheet">
 	    <link href="../bower_components/ng-dialog/css/ngDialog-theme-default.min.css" rel="stylesheet">
          <link href="styles/mystyles.css" rel="stylesheet">
-
+<!-- endbuild -->
+         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	</head>
 
@@ -22,21 +26,36 @@
         <div ui-view="footer"></div>
 <!--     	<div ui-view="footer"></div> -->
 
+<!-- build:js scripts/main.js -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="../bower_components/ng-dialog/js/ngDialog.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.1/angular-materialize.min.js"></script>
+
     <script src="../bower_components/materialize/dist/js/materialize.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
+<!-- endbuild -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+ <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+ <script src="https://apis.google.com/js/api.js"></script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.1/angular-materialize.min.js"></script>
     <script>
         $(document).ready(function(){
               $('.slider').slider();
+// $('.carousel').carousel({
+//             dist:0,
+//             shift:0,
+//             padding:20,
 
+//       });
             });
+
+
     </script>
+
 	</body>
 
 </html>
