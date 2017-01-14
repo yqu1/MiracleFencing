@@ -4,6 +4,7 @@ $(".button-collapse").sideNav({
   closeOnClick: true,
   menuWidth: 200
 });
+$(".dropdown-button").dropdown();
 </script>
 
 <div class="navbar-fixed"> 
@@ -11,17 +12,21 @@ $(".button-collapse").sideNav({
     <div class="nav-wrapper blue">
       <a href="#!" class="brand-logo center">Miracle Fencing Club</a>
       <a href = "" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a ui-sref="app.login">Login</a></li>
+        <li><a ui-sref="app.signup">Signup</a></li>
+      </ul>
       <ul class="right hide-on-med-and-down">
 <!--         <li><a ui-sref = "app">Home</a></li> -->
 <!--         <li><a href = "#">Coaches</a></li> -->
-        <li><a ui-sref="app.schedule">Schedule</a></li>
         <li><a ng-click = "scrollBottom()">Contact</a></li>
         <li><a ui-sref="app.resources">Resources</a></li>
-        <li><a ui-sref="app.login">Login</a></li>
+         <li><a class="dropdown-button" data-activates="dropdown1">Registration<i class="material-icons right">arrow_drop_down</i></a></li>
 <!--         <li><a ui-sref="app.registration">Registration</a></li> -->
       </ul>
       <ul class="left hide-on-med-and-down">
         <li><a ui-sref = "app">Home</a></li>
+                <li><a ui-sref="app.schedule">Schedule</a></li>
 <!--         <li><a href = "#">Coaches</a></li> -->
 <!--         <li><a ui-sref="app.schedule">Schedule</a></li> -->
 <!--         <li><a ng-click = "scrollBottom()">Contact</a></li> -->

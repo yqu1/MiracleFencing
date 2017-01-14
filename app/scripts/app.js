@@ -40,6 +40,16 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 			}
 		})
 
+		.state('app.signup', {
+			url: 'signup',
+			views: {
+				'content@': {
+					templateUrl: 'views/registration/signup.html',
+					controller: 'signupController'
+				}
+			}
+		})
+
 		.state('app.resources', {
 			url: 'resources',
 			views: {

@@ -45,3 +45,11 @@ angular.module('fencingApp')
   	}
 }])
 
+.controller('loginController', ['$scope', function($scope) {
+
+  }])
+
+.controller('signupController', ['$scope', function($scope) {
+
+  }])
+
