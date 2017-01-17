@@ -18,7 +18,8 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 				'footer': {
 					templateUrl: 'views/footer.html'
 				}
-			}
+			},
+			authenticate: false
 		})
 
 		.state('app.schedule', {
@@ -27,7 +28,8 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 				'content@': {
 					templateUrl: 'views/schedule.html',
 				}
-			}
+			},
+			authenticate: false
 		})
 
 		.state('app.login', {
@@ -37,7 +39,8 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 					templateUrl: 'views/registration/login.html',
 					controller: 'loginController'
 				}
-			}
+			},
+			authenticate: false
 		})
 
 		.state('app.signup', {
@@ -47,7 +50,8 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 					templateUrl: 'views/registration/signup.html',
 					controller: 'signupController'
 				}
-			}
+			},
+			authenticate: false
 		})
 
 		.state('app.resources', {
@@ -56,7 +60,19 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 				'content@': {
 					templateUrl: 'views/resources.html',
 				}
-			}
+			},
+			authenticate: false
+		})
+
+		.state('app.duels', {
+			url: 'duels',
+			views: {
+				'content@': {
+					templateUrl: 'views/duels.html',
+					controller: 'duelController'
+				}
+			},
+			authenticate: true
 		})
 
 

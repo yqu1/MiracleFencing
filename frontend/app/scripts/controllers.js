@@ -1,6 +1,16 @@
 'use strict'
 
 angular.module('fencingApp')
+.run(function ($rootScope, $state, AuthFactory) {
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    if (toState.authenticate && !AuthFactory.isAuthenticated()){
+      // User isn’t authenticated
+      console.log("fuck")
+      $state.transitionTo("app.login");
+      event.preventDefault(); 
+    }
+  });
+})
 .run(function($rootScope, AuthFactory) {
   if(AuthFactory.getUsername() != '') {
     $rootScope.loggedin = true
@@ -10,7 +20,7 @@ angular.module('fencingApp')
     $rootScope.loggedin = false
   }
 })
-.constant("baseURL", "https://peaceful-fortress-87755.herokuapp.com/")
+.constant("baseURL", "http://localhost:8080/")
 .service('blogService', ['$http', function($http) {
 	var url = 'https://www.googleapis.com/blogger/v3/blogs/7067178439209854231/posts?key=AIzaSyClkD7VwG7pUmxVqDqBcTUZ5PzjWbSHGXA'
 	this.getNewBlog = function(callback) {
@@ -18,6 +28,25 @@ angular.module('fencingApp')
 			callback(response.data)
 		})
 	}
+}])
+
+.factory('userFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+  return $resource(baseURL + "users", null, {
+    'query': {
+      method: 'GET', isArray: true
+    }
+  })
+}])
+
+.factory('requestFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+  return $resource(baseURL + "requests/:id", null, {
+    'update': {
+      method: 'PUT'
+    },
+    'query': {
+      method: 'GET', isArray: true
+    }
+  })
 }])
 
 .factory('$localStorage', ['$window', function ($window) {
@@ -40,12 +69,13 @@ angular.module('fencingApp')
     }
 }])
 
-.factory('AuthFactory', ['$resource', '$http', '$localStorage', '$rootScope', '$window', 'baseURL', 'ngDialog', function($resource, $http, $localStorage, $rootScope, $window, baseURL, ngDialog){
+.factory('AuthFactory', ['$resource', '$http', '$state', '$localStorage', '$rootScope', '$window', 'baseURL', 'ngDialog', function($resource, $http, $state, $localStorage, $rootScope, $window, baseURL, ngDialog){
     
     var authFac = {};
     var TOKEN_KEY = 'Token';
     var isAuthenticated = false;
     var username = '';
+    var userId = '';
     var authToken = undefined;
     
 
@@ -65,6 +95,7 @@ angular.module('fencingApp')
     isAuthenticated = true;
     username = credentials.username;
     authToken = credentials.token;
+    userId = credentials.userId;
  
     // Set the token as header for your requests!
     $http.defaults.headers.common['x-access-token'] = authToken;
@@ -73,6 +104,7 @@ angular.module('fencingApp')
   function destroyUserCredentials() {
     authToken = undefined;
     username = '';
+    userId = '';
     isAuthenticated = false;
     $http.defaults.headers.common['x-access-token'] = authToken;
     $localStorage.remove(TOKEN_KEY);
@@ -83,8 +115,9 @@ angular.module('fencingApp')
         $resource(baseURL + "users/login")
         .save(loginData,
            function(response) {
-              storeUserCredentials({username:loginData.username, token: response.token});
+              storeUserCredentials({username:loginData.username, token: response.token, userId: response.userId});
               $rootScope.$broadcast('login:Successful');
+              Materialize.toast('Welcome, swordsman ' + loginData.username, 3000)
            },
            function(response){
               isAuthenticated = false;
@@ -110,9 +143,14 @@ angular.module('fencingApp')
         });
         destroyUserCredentials();
         $rootScope.loggedin = false;
-        console.log("fuck")
+        Materialize.toast('You are successfully logged out!', 3000)
+        $state.go('app')
     };
     
+    authFac.getUserId = function() {
+      return userId;
+    }
+
     authFac.register = function(registerData) {
         
         $resource(baseURL + "users/register")
@@ -233,3 +271,49 @@ angular.module('fencingApp')
     };
 }])
 
+.controller('duelController', ['$scope', 'userFactory', 'requestFactory', 'AuthFactory', function($scope, userFactory, requestFactory, AuthFactory) {
+  var nameMap = {};
+  $scope.op = {}
+  $scope.duelReq = {}
+  $scope.challenge = {}
+  userFactory.query().$promise.then(function(allUsers) {
+    $scope.allUsers = allUsers.filter(function(user) {
+      return user._id != AuthFactory.getUserId()
+    })
+
+    allUsers.forEach(function(user) {
+      nameMap[user._id] = user;
+    })
+
+    requestFactory.query().$promise.then(function(allRequests){
+        console.log(allRequests)
+        $scope.allRequests = allRequests.map(function(r) {
+            return {
+              _id: r._id,
+              from: nameMap[r.from],
+              to: r.to,
+              date: r.date,
+              message: r.message,
+              created_at: r.created_at
+            }
+          })
+    })
+  })
+  $scope.setOpponent = function(user) {
+    $scope.op = user
+  }
+  $scope.sendRequest = function() {
+    $scope.duelReq.to = $scope.op._id
+    requestFactory.save($scope.duelReq)
+  }
+  $scope.set = function(req) {
+    $scope.challenge = req
+    console.log($scope.challenge)
+  }
+  $scope.subReq = function() {
+    requestFactory.delete({id: $scope.challenge._id})
+    $scope.allRequests = $scope.allRequests.filter(function(r) {
+      return r._id != $scope.challenge._id
+    })
+  }
+}])

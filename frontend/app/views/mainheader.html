@@ -1,26 +1,31 @@
 <script>
 // Initialize collapse button
 $(".button-collapse").sideNav({
-  closeOnClick: false,
   menuWidth: 200,
-  draggable: true
+  draggable: true,
+  closeOnClick: true
 });
 $(".dropdown-button").dropdown();
+$('.collapsible').collapsible();
+
 </script>
-<ul id="dropdown1" class="dropdown-content">
+
+<div class="navbar-fixed"> 
+  <ul id="dropdown1" class="dropdown-content">
         <li><a ui-sref="app.login">Login</a></li>
         <li><a ui-sref="app.signup">Signup</a></li>
       </ul>
       <ul id="dropdown2" class="dropdown-content">
-        <li><a ui-sref="app">Profile</a></li>
-        <li><a ui-sref="app">Duels</a></li>
+<!--         <li><a ui-sref="app">Profile</a></li> -->
+        <li><a ui-sref="app.duels">Duels</a></li>
         <li><a ng-click = "logout()">Logout</a></li>
       </ul>
-<div class="navbar-fixed"> 
   <nav>
+
     <div class="nav-wrapper blue">
       <a href="#!" class="brand-logo center">Miracle Fencing Club</a>
-      <a href = "" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href = "#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
       <ul class="right hide-on-med-and-down">
 <!--         <li><a ui-sref = "app">Home</a></li> -->
 <!--         <li><a href = "#">Coaches</a></li> -->
@@ -45,7 +50,7 @@ $(".dropdown-button").dropdown();
         <li ng-show="!loggedin" class="no-padding">
         <ul class="collapsible collapsible-accordion">
           <li>
-            <a class="collapsible-header">Registration</a>
+            <a class="collapsible-header white-text waves-effect waves-teal">Registration</a>
             <div class="collapsible-body">
               <ul>
                 <li><a ui-sref="app.login">Login</a></li>
@@ -58,12 +63,12 @@ $(".dropdown-button").dropdown();
       <li ng-show="loggedin" class="no-padding">
         <ul class="collapsible collapsible-accordion">
           <li>
-            <a class="collapsible-header">{{username}}</a>
+            <a class="collapsible-header white-text waves-effect waves-teal">{{username}}</a>
             <div class="collapsible-body">
               <ul>
-                <li><a ui-sref="app">Profile</a></li>
-        <li><a ui-sref="app">Duels</a></li>
-        <li><a ng-click = "logout()">Logout</a></li>
+       <!--          <li><a ui-sref="app">Profile</a></li> -->
+                <li><a ui-sref="app.duels">Duels</a></li>
+                <li><a ng-click = "logout()">Logout</a></li>
               </ul>
             </div>
           </li>
@@ -72,24 +77,6 @@ $(".dropdown-button").dropdown();
       </ul>
     </div>
   </nav>
-<!--     <nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">Logo</a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Sass</a></li>
-        <li><a href="#">Components</a></li>
-        <li><a href="#">Javascript</a></li>
-        <li><a href="#">Mobile</a></li>
-      </ul>
-      <ul class="side-nav" id="mobile-demo">
-        <li><a href="#">Sass</a></li>
-        <li><a href="#">Components</a></li> 
-        <li><a href="#">Javascript</a></li>
-        <li><a href="#">Mobile</a></li>
-      </ul>
-    </div>
-  </nav> -->
 </div>
 
         

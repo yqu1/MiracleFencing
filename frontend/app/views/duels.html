@@ -1,0 +1,65 @@
+<script>
+$('.modal').modal();
+$('.parallax').parallax();
+$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+</script>
+	<div class="parallax-container">
+      <div class="parallax"><img src="http://bestgamewallpapers.com/files/star-wars-the-force-unleashed-2/final-duel.jpg"></div>
+    </div>
+
+<div class = "container">
+	       <div id="duel-detail" class="modal">
+		    <div class="modal-content">
+		      <h4>Challenger: {{challenge.from.firstname}}, {{challenge.from.lastname}}</h4>
+		      <h6>Duel Date: {{challenge.date}}</h6>
+		      <h6>Message: {{challenge.message}}</h6>
+		    </div>
+		    <div class="modal-footer">
+		      <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "subReq()">Agree</a>
+		      <a class=" modal-action modal-close waves-effect waves-green btn-flat" >Decline</a>
+		    </div>
+		  </div> 
+
+		  <div id="opponent-detail" class="modal">
+		    <div class="modal-content">
+		      <h4>Name: {{op.firstname}}, {{op.lastname}}</h4>
+		      <form class="col s12">
+		      	<div class = "row">
+				      <div class="input-field col s6">
+					      <label>Choose Date: </label>
+					      <input type="date" class="datepicker" ng-model = "duelReq.date">
+				      </div>
+			      </div>
+			      <div class="row">
+			        <div class="input-field col s12">
+			          <textarea id="textarea1" class="materialize-textarea" ng-model = "duelReq.message"></textarea>
+			          <label for="textarea1">Leave a message to your opponent</label>
+			        </div>
+			      </div>
+			    </form>
+		    </div>
+		    <div class="modal-footer">
+		      <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "sendRequest()">Send</a>
+		    </div>
+		  </div> 
+	<div class = "row">
+		<h4>Your Opponents</h4>
+		<ul class="collection">
+	      <li class="collection-item" ng-repeat = "user in allUsers">
+	      	<p>{{user.firstname}}, {{user.lastname}}<a ng-click = "setOpponent(user)" class="waves-effect waves-light btn secondary-content" data-target = "opponent-detail">Challenge!</a></p>
+	      </li>
+	    </ul>
+	</div>
+  	<div class = "row">
+		<h4>Duel Requests</h4>
+	    <ul class="collection">
+	      <li class="collection-item" ng-repeat = "req in allRequests"><p>{{req.from.firstname}}, {{req.from.lastname}}<a ng-click = "set(req)" data-target="duel-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
+	    </ul>
+	</div>
+            
+       
+
+</div>

@@ -49,3 +49,7 @@ html {
     display: block;
     height: 100%;
 }
+
+#sidenav-overlay {
+  z-index: 1
+}
