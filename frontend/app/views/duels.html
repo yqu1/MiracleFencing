@@ -1,6 +1,7 @@
 <script>
 $('.modal').modal();
 $('.parallax').parallax();
+$('select').material_select();
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
@@ -11,15 +12,58 @@ $('.datepicker').pickadate({
     </div>
 
 <div class = "container">
-	       <div id="duel-detail" class="modal">
+	       <div id="request-detail" class="modal">
 		    <div class="modal-content">
-		      <h4>Challenger: {{challenge.from.firstname}}, {{challenge.from.lastname}}</h4>
-		      <h6>Duel Date: {{challenge.date}}</h6>
-		      <h6>Message: {{challenge.message}}</h6>
+		      <h4>Challenger: {{req.from.firstname}}, {{req.from.lastname}}</h4>
+		      <h4>Challenged: {{req.to.firstname}}, {{req.to.lastname}}</h4>
+		      <h6>Duel Date: {{req.date | date:'short'}}</h6>
+		      <h6>Message: {{req.message}}</h6>
 		    </div>
 		    <div class="modal-footer">
-		      <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "subReq()">Agree</a>
-		      <a class=" modal-action modal-close waves-effect waves-green btn-flat" >Decline</a>
+		      <a ng-if = "fromMeAndPending" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "reqFuncs.subReq()">Agree</a>
+		      <a ng-if = "fromMeAndPending" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "reqFuncs.declineReq()">Decline</a>
+		    </div>
+		  </div> 
+
+		  <div id="match-detail" class="modal">
+		    <div class="modal-content">
+		      <h4>Challenger: {{match.from.firstname}}, {{match.from.lastname}}</h4>
+		      <h4>Challenged: {{match.to.firstname}}, {{match.to.lastname}}</h4>
+		      <h6>Duel Date: {{match.date | date:'short'}}</h6>
+		      <h6>Status: {{match.status}}</h6>
+		      <div ng-if = "fromMeAndUncompleted">
+			      <p>
+				      <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" ng-model = "record.winner" />
+				      <label for="filled-in-box">Did you win?</label>
+				    </p>
+				  <p class="range-field">
+				      <input type="range" id="test5" min="0" max="15" ng-model = "record.winScore" />
+				      <label>Select Winner Score</label>
+				    </p>
+				    <p class="range-field">
+				      <input type="range" id="test6" min="0" max="15" ng-model = "record.loseScore" />
+				      <label>Select Loser Score</label>
+				    </p>
+				</div>
+		      <h6>Message: {{match.message}}</h6>
+		    </div>
+		    <div class="modal-footer">
+		      <a ng-if = "fromMeAndUncompleted" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "matchFuncs.subMatch()">Submit</a>
+		      <a ng-if = "fromMeAndUncompleted" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "matchFuncs.cancelMatch()" >Cancel Match</a>
+		    </div>
+		  </div> 
+
+		  <div id="completed-detail" class="modal">
+		    <div class="modal-content">
+		      <h4>Challenger: {{completed.from.firstname}}, {{completed.from.lastname}}</h4>
+		      <h4>Challenged: {{completed.to.firstname}}, {{completed.to.lastname}}</h4>
+		      <h6>Duel Date: {{completed.date | date:'short'}}</h6>
+		      <h6>Winner: {{completed.record.winner}}</h6>
+		      <h6>Score: {{completed.record.winScore}} - {{completed.record.loseScore}}</h6>
+
+		      <h6>Message: {{completed.message}}</h6>
+		    </div>
+		    <div class="modal-footer">
 		    </div>
 		  </div> 
 
@@ -56,10 +100,24 @@ $('.datepicker').pickadate({
   	<div class = "row">
 		<h4>Duel Requests</h4>
 	    <ul class="collection">
-	      <li class="collection-item" ng-repeat = "req in allRequests"><p>{{req.from.firstname}}, {{req.from.lastname}}<a ng-click = "set(req)" data-target="duel-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
+	      <li class="collection-item" ng-repeat = "req in allRequests"><p>{{req.from.firstname}}, {{req.from.lastname}}, status: {{req.status}}<a ng-click = "set1(req)" data-target="request-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
 	    </ul>
 	</div>
             
+    <div class = "row">
+		<h4>Pending Matches</h4>
+	    <ul class="collection">
+	      <li class="collection-item" ng-repeat = "match in allMatches"><p>{{match.from.firstname}}, {{match.from.lastname}}, status: {{match.status}}<a ng-click = "set2(match)" data-target="match-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
+	    </ul>
+	</div>
+
+	<div class = "row">
+		<h4>Match Records</h4>
+	    <ul class="collection">
+	      <li class="collection-item" ng-repeat = "completed in allCompleted"><p>{{completed.from.firstname}}, {{completed.from.lastname}}<a ng-click = "set3(completed)" data-target="completed-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
+	    </ul>
+	</div>
        
+
 
 </div>

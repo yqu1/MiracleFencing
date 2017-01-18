@@ -5,7 +5,6 @@ angular.module('fencingApp')
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     if (toState.authenticate && !AuthFactory.isAuthenticated()){
       // User isn’t authenticated
-      console.log("fuck")
       $state.transitionTo("app.login");
       event.preventDefault(); 
     }
@@ -20,178 +19,7 @@ angular.module('fencingApp')
     $rootScope.loggedin = false
   }
 })
-.constant("baseURL", "http://localhost:8080/")
-.service('blogService', ['$http', function($http) {
-	var url = 'https://www.googleapis.com/blogger/v3/blogs/7067178439209854231/posts?key=AIzaSyClkD7VwG7pUmxVqDqBcTUZ5PzjWbSHGXA'
-	this.getNewBlog = function(callback) {
-		$http.get(url).then(function(response) {
-			callback(response.data)
-		})
-	}
-}])
 
-.factory('userFactory', ['$resource', 'baseURL', function($resource, baseURL) {
-  return $resource(baseURL + "users", null, {
-    'query': {
-      method: 'GET', isArray: true
-    }
-  })
-}])
-
-.factory('requestFactory', ['$resource', 'baseURL', function($resource, baseURL) {
-  return $resource(baseURL + "requests/:id", null, {
-    'update': {
-      method: 'PUT'
-    },
-    'query': {
-      method: 'GET', isArray: true
-    }
-  })
-}])
-
-.factory('$localStorage', ['$window', function ($window) {
-    return {
-        store: function (key, value) {
-            $window.localStorage[key] = value;
-        },
-        get: function (key, defaultValue) {
-            return $window.localStorage[key] || defaultValue;
-        },
-        remove: function (key) {
-            $window.localStorage.removeItem(key);
-        },
-        storeObject: function (key, value) {
-            $window.localStorage[key] = JSON.stringify(value);
-        },
-        getObject: function (key, defaultValue) {
-            return JSON.parse($window.localStorage[key] || defaultValue);
-        }
-    }
-}])
-
-.factory('AuthFactory', ['$resource', '$http', '$state', '$localStorage', '$rootScope', '$window', 'baseURL', 'ngDialog', function($resource, $http, $state, $localStorage, $rootScope, $window, baseURL, ngDialog){
-    
-    var authFac = {};
-    var TOKEN_KEY = 'Token';
-    var isAuthenticated = false;
-    var username = '';
-    var userId = '';
-    var authToken = undefined;
-    
-
-  function loadUserCredentials() {
-    var credentials = $localStorage.getObject(TOKEN_KEY,'{}');
-    if (credentials.username != undefined) {
-      useCredentials(credentials);
-    }
-  }
- 
-  function storeUserCredentials(credentials) {
-    $localStorage.storeObject(TOKEN_KEY, credentials);
-    useCredentials(credentials);
-  }
- 
-  function useCredentials(credentials) {
-    isAuthenticated = true;
-    username = credentials.username;
-    authToken = credentials.token;
-    userId = credentials.userId;
- 
-    // Set the token as header for your requests!
-    $http.defaults.headers.common['x-access-token'] = authToken;
-  }
- 
-  function destroyUserCredentials() {
-    authToken = undefined;
-    username = '';
-    userId = '';
-    isAuthenticated = false;
-    $http.defaults.headers.common['x-access-token'] = authToken;
-    $localStorage.remove(TOKEN_KEY);
-  }
-     
-    authFac.login = function(loginData) {
-        
-        $resource(baseURL + "users/login")
-        .save(loginData,
-           function(response) {
-              storeUserCredentials({username:loginData.username, token: response.token, userId: response.userId});
-              $rootScope.$broadcast('login:Successful');
-              Materialize.toast('Welcome, swordsman ' + loginData.username, 3000)
-           },
-           function(response){
-              isAuthenticated = false;
-            
-              var message = '\
-                <div class="ngdialog-message">\
-                <div><h3>Login Unsuccessful</h3></div>' +
-                  '<div><p>' +  response.data.err.message + '</p><p>' +
-                    response.data.err.name + '</p></div>' +
-                '<div class="ngdialog-buttons">\
-                    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button>\
-                </div>'
-            
-                ngDialog.openConfirm({ template: message, plain: 'true'});
-           }
-        
-        );
-
-    };
-    
-    authFac.Logout = function() {
-        $resource(baseURL + "users/logout").get(function(response){
-        });
-        destroyUserCredentials();
-        $rootScope.loggedin = false;
-        Materialize.toast('You are successfully logged out!', 3000)
-        $state.go('app')
-    };
-    
-    authFac.getUserId = function() {
-      return userId;
-    }
-
-    authFac.register = function(registerData) {
-        
-        $resource(baseURL + "users/register")
-        .save(registerData,
-           function(response) {
-              authFac.login({username:registerData.username, password:registerData.password});
-            if (registerData.rememberMe) {
-                $localStorage.storeObject('userinfo',
-                    {username:registerData.username, password:registerData.password});
-            }
-           
-              $rootScope.$broadcast('registration:Successful');
-           },
-           function(response){
-            
-              var message = '\
-                <div class="ngdialog-message">\
-                <div><h3>Registration Unsuccessful</h3></div>' +
-                  '<div><p>' +  response.data.err.message + 
-                  '</p><p>' + response.data.err.name + '</p></div>';
-
-                ngDialog.openConfirm({ template: message, plain: 'true'});
-
-           }
-        
-        );
-    };
-    
-    authFac.isAuthenticated = function() {
-        return isAuthenticated;
-    };
-    
-    authFac.getUsername = function() {
-        return username;  
-    };
-
-    loadUserCredentials();
-    
-    return authFac;
-    
-}])
 
 
 .controller('fencingController', ['$scope', 'blogService', 'AuthFactory', '$sce', function ($scope, blogService, AuthFactory, $sce) {
@@ -271,49 +99,201 @@ angular.module('fencingApp')
     };
 }])
 
-.controller('duelController', ['$scope', 'userFactory', 'requestFactory', 'AuthFactory', function($scope, userFactory, requestFactory, AuthFactory) {
+.controller('duelController', ['$scope', 'userFactory', 'matchFactory', 'AuthFactory', function($scope, userFactory, matchFactory, AuthFactory) {
+
   var nameMap = {};
+  $scope.allRequests = {} //all pending and declined requests
+  $scope.allMatches = {} //all uncompleted and declined matches
+  $scope.allRecords = {} //all completed matches
+  $scope.record = {
+    winner: null,
+    winScore: 0,
+    loseScore: 0
+  }
+
   $scope.op = {}
   $scope.duelReq = {}
   $scope.challenge = {}
-  userFactory.query().$promise.then(function(allUsers) {
-    $scope.allUsers = allUsers.filter(function(user) {
-      return user._id != AuthFactory.getUserId()
-    })
 
+  //get all users and all requests
+  userFactory.query().$promise.then(function(allUsers) {
     allUsers.forEach(function(user) {
       nameMap[user._id] = user;
     })
 
-    requestFactory.query().$promise.then(function(allRequests){
+    $scope.allUsers = allUsers.filter(function(user) {
+      return user._id != AuthFactory.getUserId()
+    })
+
+    $scope.getAllThings = function() {
+          var query1 = JSON.stringify({
+      '$and': [{$or: [{'from': AuthFactory.getUserId()}, {'to': AuthFactory.getUserId()}]}, {$or: [{'status': 'pending'}, {'status': 'declined'}]}],
+      'date': {$gte: new Date()}
+    })
+    matchFactory.query({q: query1}).$promise.then(function(allRequests){
         console.log(allRequests)
         $scope.allRequests = allRequests.map(function(r) {
             return {
               _id: r._id,
               from: nameMap[r.from],
-              to: r.to,
+              to: nameMap[r.to],
               date: r.date,
               message: r.message,
+              status: r.status,
               created_at: r.created_at
             }
           })
     })
+
+    var query2 = JSON.stringify({
+      '$and': [{$or: [{'from': AuthFactory.getUserId()}, {'to': AuthFactory.getUserId()}]}, {$or: [{'status': 'uncompleted'}, {'status': 'cancelled'}]}],
+      'date': {$gte: new Date()}
+    })
+    matchFactory.query({q: query2}).$promise.then(function(allMatches) {
+      $scope.allMatches = allMatches.map(function(m) {
+        return {
+          _id: m._id,
+          from: nameMap[m.from],
+          to: nameMap[m.to],
+          date: m.date,
+          message: m.message,
+          status: m.status,
+          created_at: m.created_at
+        }
+      })
+    })
+
+    var query3 = JSON.stringify({
+      '$or': [{'from': AuthFactory.getUserId()}, {'to': AuthFactory.getUserId()}],
+      'status': 'completed',
+      'date': {$lte: new Date()}
+    })
+    matchFactory.query({q: query3}).$promise.then(function(allCompleted) {
+      $scope.allCompleted = allCompleted.map(function(c) {
+          c.record.winner = nameMap[c.record.winner].firstname + ", " + nameMap[c.record.winner].lastname;
+          console.log(c.record)
+          return {
+            _id: c._id,
+            from: nameMap[c.from],
+            to: nameMap[c.to],
+            date: c.date,
+            message: c.message,
+            status: c.status,
+            record: c.record,
+            created_at: c.created_at
+          }
+      })
+    })
+  }
+
+  $scope.getAllThings();
+
   })
+
+
+
   $scope.setOpponent = function(user) {
     $scope.op = user
   }
   $scope.sendRequest = function() {
-    $scope.duelReq.to = $scope.op._id
-    requestFactory.save($scope.duelReq)
-  }
-  $scope.set = function(req) {
-    $scope.challenge = req
-    console.log($scope.challenge)
-  }
-  $scope.subReq = function() {
-    requestFactory.delete({id: $scope.challenge._id})
-    $scope.allRequests = $scope.allRequests.filter(function(r) {
-      return r._id != $scope.challenge._id
+    $scope.duelReq.from = AuthFactory.getUserId();
+    $scope.duelReq.to = $scope.op._id;
+    $scope.duelReq.date = new Date($scope.duelReq.date);
+    $scope.duelReq.status = 'pending';
+    matchFactory.save($scope.duelReq).$promise.then(function(response) {
+      $scope.getAllThings();
     })
   }
+  $scope.set1 = function(req) {
+    $scope.req = req;
+    $scope.fromMeAndPending = (req.from._id !== AuthFactory.getUserId()) && (req.status === "pending");
+  }
+
+  $scope.set2 = function(match) {
+    $scope.match = match;
+    $scope.fromMeAndUncompleted = (match.from._id !== AuthFactory.getUserId()) && (match.status === "uncompleted");
+  }
+
+  $scope.set3 = function(completed) {
+    $scope.completed = completed;
+  }
+
+  $scope.reqFuncs = {
+      subReq: function() {
+
+        console.log($scope.req.to._id)
+        console.log($scope.req.from._id)
+        console.log($scope.req.date)
+          matchFactory.save({
+            from: $scope.req.from._id,
+            to: $scope.req.to._id,
+            date: $scope.req.date,
+            message: $scope.req.message,
+            status: 'uncompleted',
+            record: {
+              winner: null,
+              winScore: 0,
+              loseScore: 0
+            }
+          }).$promise.then(function(response) {
+            $scope.getAllThings();
+          })
+        },
+      declineReq: function() {
+        matchFactory.save({
+            from: $scope.req.from._id,
+            to: $scope.req.to._id,
+            date: $scope.req.date,
+            message: $scope.req.message,
+            status: 'declined',
+            record: {
+              winner: null,
+              winScore: 0,
+              loseScore: 0
+            }
+          }).$promise.then(function(res) {
+            $scope.getAllThings();
+          })
+      }
+  }
+
+
+  $scope.matchFuncs = {
+      subMatch: function() {
+          if($scope.record.winner) {
+            $scope.record.winner = AuthFactory.getUserId()
+          }
+          else {
+            $scope.record.winner = $scope.match.to._id
+          }
+          matchFactory.save({
+            from: $scope.match.from._id,
+            to: $scope.match.to._id,
+            date: $scope.match.date,
+            message: $scope.match.message,
+            status: 'completed',
+            record: $scope.record
+          }).$promise.then(function(res) {
+            $scope.getAllThings();
+          })
+        },
+      cancelMatch: function() {
+        matchFactory.save({
+            from: $scope.match.from._id,
+            to: $scope.match.to._id,
+            date: $scope.match.date,
+            message: $scope.match.message,
+            status: 'cancelled',
+            record: {
+              winner: null,
+              winScore: 0,
+              loseScore: 0
+            }
+          }).$promise.then(function(res) {
+            $scope.getAllThings();
+          })
+      }
+  }
+
+
 }])
