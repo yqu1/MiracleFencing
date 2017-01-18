@@ -75,7 +75,7 @@ $('.datepicker').pickadate({
 		      	<div class = "row">
 				      <div class="input-field col s6">
 					      <label>Choose Date: </label>
-					      <input type="date" class="datepicker" ng-model = "duelReq.date" required = "required">
+					      <input type="date" class="datepicker" ng-model = "duelReq.date">
 				      </div>
 			      </div>
 			      <div class="row">
@@ -99,7 +99,7 @@ $('.datepicker').pickadate({
 	    </ul>
 	</div>
   	<div class = "row">
-		<h4>Duel Requests <h6 class = "red-text">(Please request 1 day before duel date)</h6></h4>
+		<h4>Duel Requests</h4>
 	    <ul class="collection">
 	      <li class="collection-item" ng-repeat = "req in allRequests"><p>{{req.from.firstname}} {{req.from.lastname}} VS {{req.to.firstname}} {{req.to.lastname}}, 		status: <span style="color: red" ng-if = "req.status === 'declined'">{{req.status}}</span><span style="color: green" ng-if = "req.status === 'pending'">{{req.status}}</span><a ng-click = "set1(req)" data-target="request-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
 	    </ul>

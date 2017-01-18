@@ -199,6 +199,8 @@ angular.module('fencingApp')
     $scope.duelReq.from = AuthFactory.getUserId();
     $scope.duelReq.to = $scope.op._id;
     $scope.duelReq.date = new Date($scope.duelReq.date);
+    $scope.duelReq.date = $scope.duelReq.date.setHours(23);
+    console.log($scope.duelReq.date)
     $scope.duelReq.status = 'pending';
     matchFactory.save($scope.duelReq).$promise.then(function(response) {
       $scope.getAllThings();
@@ -211,7 +213,7 @@ angular.module('fencingApp')
 
   $scope.set2 = function(match) {
     $scope.match = match;
-    $scope.fromMeAndUncompleted = (match.from._id !== AuthFactory.getUserId()) && (match.status === "uncompleted");
+    $scope.fromMeAndUncompleted = (match.status === "uncompleted");
   }
 
   $scope.set3 = function(completed) {
@@ -264,7 +266,12 @@ angular.module('fencingApp')
             $scope.record.winner = AuthFactory.getUserId()
           }
           else {
-            $scope.record.winner = $scope.match.to._id
+            if($scope.match.to._id === AuthFactory.getUserId()) {
+              $scope.record.winner  = $scope.match.from._id
+            }
+            else {
+              $scope.record.winner  = $scope.match.to._id
+            }
           }
           matchFactory.save({
             from: $scope.match.from._id,

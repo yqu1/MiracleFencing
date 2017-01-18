@@ -16,8 +16,8 @@ $('.collapsible').collapsible();
         <li><a ui-sref="app.signup">Signup</a></li>
       </ul>
       <ul id="dropdown2" class="dropdown-content">
-        <li><a ui-sref="app">Profile</a></li>
-        <li><a ui-sref="app">Duels</a></li>
+<!--         <li><a ui-sref="app">Profile</a></li> -->
+        <li><a ui-sref="app.duels">Duels</a></li>
         <li><a ng-click = "logout()">Logout</a></li>
       </ul>
   <nav>
@@ -66,8 +66,8 @@ $('.collapsible').collapsible();
             <a class="collapsible-header white-text waves-effect waves-teal">{{username}}</a>
             <div class="collapsible-body">
               <ul>
-                <li><a ui-sref="app">Profile</a></li>
-                <li><a ui-sref="app">Duels</a></li>
+       <!--          <li><a ui-sref="app">Profile</a></li> -->
+                <li><a ui-sref="app.duels">Duels</a></li>
                 <li><a ng-click = "logout()">Logout</a></li>
               </ul>
             </div>
