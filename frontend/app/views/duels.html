@@ -4,7 +4,8 @@ $('.parallax').parallax();
 $('select').material_select();
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    min: new Date()
   });
 </script>
 	<div class="parallax-container">
@@ -100,21 +101,21 @@ $('.datepicker').pickadate({
   	<div class = "row">
 		<h4>Duel Requests</h4>
 	    <ul class="collection">
-	      <li class="collection-item" ng-repeat = "req in allRequests"><p>{{req.from.firstname}}, {{req.from.lastname}}, status: {{req.status}}<a ng-click = "set1(req)" data-target="request-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
+	      <li class="collection-item" ng-repeat = "req in allRequests"><p>{{req.from.firstname}} {{req.from.lastname}} VS {{req.to.firstname}} {{req.to.lastname}}, 		status: <span style="color: red" ng-if = "req.status === 'declined'">{{req.status}}</span><span style="color: green" ng-if = "req.status === 'pending'">{{req.status}}</span><a ng-click = "set1(req)" data-target="request-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
 	    </ul>
 	</div>
             
     <div class = "row">
 		<h4>Pending Matches</h4>
 	    <ul class="collection">
-	      <li class="collection-item" ng-repeat = "match in allMatches"><p>{{match.from.firstname}}, {{match.from.lastname}}, status: {{match.status}}<a ng-click = "set2(match)" data-target="match-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
+	      <li class="collection-item" ng-repeat = "match in allMatches"><p>{{match.from.firstname}} {{match.from.lastname}} VS {{match.to.firstname}} {{match.to.lastname}}, 	status: <span style="color: green" ng-if = "match.status === 'uncompleted'">{{match.status}}</span><span style="color: red" ng-if = "match.status === 'cancelled'">{{match.status}}</span><a ng-click = "set2(match)" data-target="match-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
 	    </ul>
 	</div>
 
 	<div class = "row">
 		<h4>Match Records</h4>
 	    <ul class="collection">
-	      <li class="collection-item" ng-repeat = "completed in allCompleted"><p>{{completed.from.firstname}}, {{completed.from.lastname}}<a ng-click = "set3(completed)" data-target="completed-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
+	      <li class="collection-item" ng-repeat = "completed in allCompleted"><p>{{completed.from.firstname}} {{completed.from.lastname}} VS {{completed.to.firstname}} {{completed.to.lastname}}<a ng-click = "set3(completed)" data-target="completed-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
 	    </ul>
 	</div>
        
