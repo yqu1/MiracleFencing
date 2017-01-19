@@ -5,14 +5,16 @@ $('select').material_select();
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15, // Creates a dropdown of 15 years to control year
-    min: new Date()
+    min: new Date(),
+    container: '.datepicker-container'
   });
+
 </script>
 	<div class="parallax-container">
       <div class="parallax"><img src="http://bestgamewallpapers.com/files/star-wars-the-force-unleashed-2/final-duel.jpg"></div>
     </div>
 
-<div class = "container">
+<div class = "container datepicker-container">
 	       <div id="request-detail" class="modal">
 		    <div class="modal-content">
 		      <h4>Challenger: {{req.from.firstname}}, {{req.from.lastname}}</h4>
@@ -75,7 +77,7 @@ $('.datepicker').pickadate({
 		      	<div class = "row">
 				      <div class="input-field col s6">
 					      <label>Choose Date: </label>
-					      <input type="date" class="datepicker" ng-model = "duelReq.date">
+					      <input type="date" class="datepicker" ng-model = "duelReq.date" required = "required">
 				      </div>
 			      </div>
 			      <div class="row">
@@ -99,7 +101,7 @@ $('.datepicker').pickadate({
 	    </ul>
 	</div>
   	<div class = "row">
-		<h4>Duel Requests</h4>
+		<h4>Duel Requests <h6 class = "red-text">(Please request 1 day before duel date)</h6></h4>
 	    <ul class="collection">
 	      <li class="collection-item" ng-repeat = "req in allRequests"><p>{{req.from.firstname}} {{req.from.lastname}} VS {{req.to.firstname}} {{req.to.lastname}}, 		status: <span style="color: red" ng-if = "req.status === 'declined'">{{req.status}}</span><span style="color: green" ng-if = "req.status === 'pending'">{{req.status}}</span><a ng-click = "set1(req)" data-target="request-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
 	    </ul>
