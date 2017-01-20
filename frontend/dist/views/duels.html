@@ -27,7 +27,6 @@ $('.datepicker').pickadate({
 		      <a ng-if = "fromMeAndPending" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "reqFuncs.declineReq()">Decline</a>
 		    </div>
 		  </div> 
-
 		  <div id="match-detail" class="modal">
 		    <div class="modal-content">
 		      <h4>Challenger: {{match.from.firstname}}, {{match.from.lastname}}</h4>
@@ -100,8 +99,9 @@ $('.datepicker').pickadate({
 	      </li>
 	    </ul>
 	</div>
+	<h6 class = "red-text">Note: If you find that requests, matches and records are not showing up, try logging out and logging back in again</h6>
   	<div class = "row">
-		<h4>Duel Requests <h6 class = "red-text">(Please request 1 day before duel date)</h6></h4>
+		<h4>Duel Requests</h4>
 	    <ul class="collection">
 	      <li class="collection-item" ng-repeat = "req in allRequests"><p>{{req.from.firstname}} {{req.from.lastname}} VS {{req.to.firstname}} {{req.to.lastname}}, 		status: <span style="color: red" ng-if = "req.status === 'declined'">{{req.status}}</span><span style="color: green" ng-if = "req.status === 'pending'">{{req.status}}</span><a ng-click = "set1(req)" data-target="request-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
 	    </ul>

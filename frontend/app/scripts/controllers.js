@@ -89,11 +89,11 @@ angular.module('fencingApp')
         console.log('Doing registration', $scope.registration);
 
         AuthFactory.register($scope.registration);
-        $rootScope.$on('registration:Successful', function() {
-          $rootScope.loggedin = true
-          $rootScope.username = AuthFactory.getUsername();
-          $state.go('app')
-        })
+        // $rootScope.$on('registration:Successful', function() {
+        //   $rootScope.loggedin = true
+        //   $rootScope.username = AuthFactory.getUsername();
+        //   $state.go('app')
+        // })
         ngDialog.close();
 
     };
