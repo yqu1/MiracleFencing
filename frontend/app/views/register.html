@@ -1,0 +1,87 @@
+<script>
+$('select').material_select();
+ $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+
+</script>
+<div class = "container">
+	<h4>Register for our classes!</h4>
+	<h6>(Consult schedule page for detailed class information)</h6>
+	<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="first_name" type="text" class="validate" ng-model = "reginfo.firstname">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate" ng-model = "reginfo.lastname">
+          <label for="last_name">Last Name</label>
+        </div>
+        <div class="input-field col s12">
+		    <select ng-model = "reginfo.gender">
+		      <option value="" disabled selected>Gender</option>
+		      <option value="male">male</option>
+		      <option value="female">female</option>
+		    </select>
+		    <label>Gender</label>
+		  </div>
+        <div class="input-field col s6">
+          <input id="phone" type="text" class="validate" ng-model = "reginfo.phone">
+          <label for="phone">Phone</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="date" class="datepicker" ng-model = "reginfo.dob">
+          <label for="dob">Date of Birth</label>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea" ng-model = "reginfo.address"></textarea>
+          <label for="textarea1">Address</label>
+        </div>
+         <div class="input-field col s12">
+		    <select ng-model = "reginfo.membership">
+		      <option value="" disabled selected>Choose you membership</option>
+		      <option value="Individual">Individual</option>
+		      <option value="Family Membership">Family Membership</option>
+		      <option value="None">None</option>
+		    </select>
+		    <label>Membership</label>
+		  </div>
+		   <div class="input-field col s12">
+		    <select ng-model = "reginfo.regclass">
+		      <option value="" disabled selected>Choose you class</option>
+		      <option value="Youth (8 - 13) beginner lesson">Youth (8 - 13) beginner lesson</option>
+		      <option value="Adult (14+) beginner lesson">Adult (14+) begineer lesson</option>
+		      <option value="Group Lesson - 1 lesson per week for 4 weeks">Group Lesson - 1 lesson per week for 4 weeks</option>
+		      <option value="Group Lesson - 2 lessons per week for 4 weeks">Group Lesson - 2 lessons per week for 4 weeks</option>
+		      <option value="Group Lesson - 3 lessons and more per week for 4 weeks">Group Lesson - 3 lessons and more per week for 4 weeks</option>
+
+		    </select>
+		    <label>Membership</label>
+		  </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" ng-model = "reginfo.email">
+          <label for="email">Email</label>
+        </div>
+      </div>
+
+       <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea" ng-model = "reginfo.additional"></textarea>
+          <label for="textarea1">Additional Comments</label>
+        </div>
+      </div>
+       <div class="row">
+      <div class="input-field col s12">
+            <a class="btn waves-effect waves-light col s12" ng-click = "sendEmail()">Send</a>
+          </div>
+      </div>
+
+    </form>
+  </div>
+</div>

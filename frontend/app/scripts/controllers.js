@@ -99,7 +99,7 @@ angular.module('fencingApp')
     };
 }])
 
-.controller('regController', ['$scope', 'regFactory', function ($scope, regFactory) {
+.controller('regController', ['$scope', 'regFactory', function($scope, regFactory) {
     
    $scope.reginfo = {
     firstname: "", 
@@ -111,24 +111,24 @@ angular.module('fencingApp')
       phone: "",
       regclass: "",
       additional: "",
-      membershio: ""
+      membership: ""
    }
 
    $scope.sendEmail = function() {
       regFactory.query($scope.reginfo).$promise.then(function(response) {
         $scope.reginfo = {
-    firstname: "", 
-      lastname: "", 
-      gender: "", 
-      dob: "", 
-      email: "",
-      address: "",
-      phone: "",
-      regclass: "",
-      additional: "",
-      membershio: ""
-   }
-   Materialize.toast("Sent!", 3000)
+          firstname: "", 
+            lastname: "", 
+            gender: "", 
+            dob: "", 
+            email: "",
+            address: "",
+            phone: "",
+            regclass: "",
+            additional: "",
+            membership: ""
+         }
+         Materialize.toast("Sent!", 3000)
       })
     }
 

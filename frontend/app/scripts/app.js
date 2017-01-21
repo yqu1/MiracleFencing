@@ -83,7 +83,7 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 							controller: 'regController'
 						}
 					},
-					authenticate: true
+					authenticate: false
 				})
 
 	$urlRouterProvider.otherwise('/');
