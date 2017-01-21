@@ -99,6 +99,41 @@ angular.module('fencingApp')
     };
 }])
 
+.controller('regController', ['$scope', 'regFactory', function ($scope, regFactory) {
+    
+   $scope.reginfo = {
+    firstname: "", 
+      lastname: "", 
+      gender: "", 
+      dob: "", 
+      email: "",
+      address: "",
+      phone: "",
+      regclass: "",
+      additional: "",
+      membershio: ""
+   }
+
+   $scope.sendEmail = function() {
+      regFactory.query($scope.reginfo).$promise.then(function(response) {
+        $scope.reginfo = {
+    firstname: "", 
+      lastname: "", 
+      gender: "", 
+      dob: "", 
+      email: "",
+      address: "",
+      phone: "",
+      regclass: "",
+      additional: "",
+      membershio: ""
+   }
+   Materialize.toast("Sent!", 3000)
+      })
+    }
+
+}])
+
 .controller('duelController', ['$scope', 'userFactory', 'matchFactory', 'AuthFactory', function($scope, userFactory, matchFactory, AuthFactory) {
 
   var nameMap = {};

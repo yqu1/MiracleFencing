@@ -75,6 +75,16 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 			authenticate: true
 		})
 
+		.state('app.reg', {
+					url: 'register',
+					views: {
+						'content@': {
+							templateUrl: 'views/register.html',
+							controller: 'regController'
+						}
+					},
+					authenticate: true
+				})
 
 	$urlRouterProvider.otherwise('/');
 })

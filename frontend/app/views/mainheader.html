@@ -31,12 +31,13 @@ $('.collapsible').collapsible();
 <!--         <li><a href = "#">Coaches</a></li> -->
         <li><a ng-click = "scrollBottom()">Contact</a></li>
         <li><a ui-sref="app.resources">Resources</a></li>
-         <li ng-show="!loggedin"><a class="dropdown-button" data-activates="dropdown1">Registration<i class="material-icons right">arrow_drop_down</i></a></li>
+         <li ng-show="!loggedin"><a class="dropdown-button" data-activates="dropdown1">Duel System<i class="material-icons right">arrow_drop_down</i></a></li>
          <li ng-show="loggedin"><a class="dropdown-button" data-activates="dropdown2">{{username}}<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
       <ul class="left hide-on-med-and-down">
         <li><a ui-sref = "app">Home</a></li>
                 <li><a ui-sref="app.schedule">Schedule</a></li>
+                <li><a ui-sref="app.reg">Register</a></li>
 <!--         <li><a href = "#">Coaches</a></li> -->
 <!--         <li><a ui-sref="app.schedule">Schedule</a></li> -->
 <!--         <li><a ng-click = "scrollBottom()">Contact</a></li> -->
@@ -47,10 +48,11 @@ $('.collapsible').collapsible();
         <li><a ui-sref="app.schedule" class = "white-text">Schedule</a></li>
         <li><a ng-click = "scrollBottom()" class = "white-text">Contact</a></li>
         <li><a ui-sref="app.resources" class = "white-text">Resources</a></li>
+        <li><a ui-sref="app.reg" class = "white-text">Register</a></li>
         <li ng-show="!loggedin" class="no-padding">
         <ul class="collapsible collapsible-accordion">
           <li>
-            <a class="collapsible-header white-text waves-effect waves-teal">Registration</a>
+            <a class="collapsible-header white-text waves-effect waves-teal">Duel System</a>
             <div class="collapsible-body">
               <ul>
                 <li><a ui-sref="app.login">Login</a></li>

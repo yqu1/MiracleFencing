@@ -116,6 +116,7 @@ $('.datepicker').pickadate({
 
 	<div class = "row">
 		<h4>Match Records</h4>
+		<h6 class = "red-text">(A completed match will show up the next day after the duel date)</h6>
 	    <ul class="collection">
 	      <li class="collection-item" ng-repeat = "completed in allCompleted"><p>{{completed.from.firstname}} {{completed.from.lastname}} VS {{completed.to.firstname}} {{completed.to.lastname}}<a ng-click = "set3(completed)" data-target="completed-detail" class="secondary-content"><i class="material-icons">send</i></a></p></li>
 	    </ul>
