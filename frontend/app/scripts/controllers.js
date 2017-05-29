@@ -129,6 +129,7 @@ angular.module('fencingApp')
             membership: ""
          }
          Materialize.toast("Sent!", 3000)
+         console.log("sent")
       })
     }
 

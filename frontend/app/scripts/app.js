@@ -86,5 +86,15 @@ angular.module('fencingApp', ['ui.router', 'ngDialog', 'ngResource', 'ui.materia
 					authenticate: false
 				})
 
+		.state('app.camp', {
+					url: 'camps',
+					views: {
+						'content@': {
+							templateUrl: 'views/camps.html',
+						}
+					},
+					authenticate: false
+				})
+
 	$urlRouterProvider.otherwise('/');
 })
