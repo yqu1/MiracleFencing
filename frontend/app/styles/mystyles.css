@@ -21,8 +21,6 @@ html {
  
 }
 
-
-
 .schedule-container {
     position: relative;
     padding-bottom: 56.25%;
@@ -39,7 +37,11 @@ html {
     height: 100%;
 }
 
+/*.fees-container {
+    background-color: white
+}
 
+*/
 #facebook {
     display: block;
     clear: both;
@@ -53,6 +55,7 @@ html {
 #sidenav-overlay {
   z-index: 1
 }
+
 
 /*.video-container {
     position:relative;
